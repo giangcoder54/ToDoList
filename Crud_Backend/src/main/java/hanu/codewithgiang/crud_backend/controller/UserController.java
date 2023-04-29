@@ -1,5 +1,6 @@
 package hanu.codewithgiang.crud_backend.controller;
 
+import hanu.codewithgiang.crud_backend.Exception.ErrorResponse;
 import hanu.codewithgiang.crud_backend.model.User;
 import hanu.codewithgiang.crud_backend.repository.UserRepository;
 import hanu.codewithgiang.crud_backend.service.UserServiceImpl;
@@ -20,6 +21,9 @@ public class UserController {
     private UserServiceImpl userService;
     @PostMapping("/user")
     ResponseEntity<User> newUser(@RequestBody User newUser){
+        if(newUser.getName().isBlank()||newUser.getUsername().isBlank()||newUser.getEmail().isBlank() ){
+            throw new ErrorResponse("invalid validation");
+        }
         User user = userService.createUser(newUser);
         return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
@@ -35,6 +39,9 @@ public class UserController {
     }
     @PutMapping("/update/{id}")
     ResponseEntity<User> editUser(@PathVariable("id") int  id,@RequestBody User userDetail)  {
+        if(userDetail.getName().isBlank()||userDetail.getUsername().isBlank()||userDetail.getEmail().isBlank() ){
+            throw new ErrorResponse("invalid validation");
+        }
           User updatedUser =  userService.updateUser(id, userDetail);
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 

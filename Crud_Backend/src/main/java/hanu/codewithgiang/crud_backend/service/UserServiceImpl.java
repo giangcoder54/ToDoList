@@ -1,5 +1,6 @@
 package hanu.codewithgiang.crud_backend.service;
 
+import hanu.codewithgiang.crud_backend.Exception.ErrorResponse;
 import hanu.codewithgiang.crud_backend.model.User;
 import hanu.codewithgiang.crud_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserServiceImpl implements UserService {
         User   updateUser = userRepository.getById(id);
 
             if (updateUser != null  ){
+
                 updateUser.setName(userDetail.getName());
                 updateUser.setUsername(userDetail.getUsername());
                 updateUser.setEmail(userDetail.getEmail());
